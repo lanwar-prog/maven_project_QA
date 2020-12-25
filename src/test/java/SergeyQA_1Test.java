@@ -9,9 +9,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import static org.junit.Assert.assertTrue;
 import static org.openqa.selenium.support.ui.ExpectedConditions.*;
 
-public class Sergey_QA_test1 {
+public class Sergey_QA_test {
     private WebDriver driver;
     private WebDriverWait wait;
 
@@ -30,7 +31,7 @@ public class Sergey_QA_test1 {
     }
 
     @Test
-    public void test() throws InterruptedException {
+    public void test() {
         driver.get("https://yandex.ru/");
         //Переходим в маркет
         driver.findElement(By.cssSelector("[data-id=market]")).click();
@@ -48,7 +49,7 @@ public class Sergey_QA_test1 {
         //Раскрываем список с производителями, что бы выбрать HUAWEI
         driver.findElement(By.cssSelector(".b_3M-BxXXLT-")).click();
         // кликаем по чекбоксу  HUAWEI
-        driver.findElement(By.cssSelector(".b_ozkTEFGEZz:nth-child(6) .b_3HTZJridbm.b_39u9B5r5gw:nth-child(5) .b_FFDvPT4vH6")).click();
+        driver.findElement(By.cssSelector(".b_ozkTEFGEZz:nth-child(6) .b_3HTZJridbm.b_39u9B5r5gw:last-child .b_FFDvPT4vH6")).click();
 //===================================================
 // Второй вариант клика на чекбокс который не работает как не заставляй
 //        //ввод в поиск HUAWEI
@@ -71,11 +72,10 @@ public class Sergey_QA_test1 {
         //считываем в массив таблицу выбранных телефонов HUAWEI
         List<WebElement> list = driver.findElements(By.cssSelector(".b_lS7Xz3hU_W span.b_3l-uEDOaBN.b_20Jv_9PW6N.b_3HJsMt3YC_.b_QDV8hKAp1G"));
         //Проверяем выборку что бы все были только HUAWEI
-        for (WebElement l : list) {
-            System.out.println(l.getText());
-            if (!l.getText().contains("HUAWEI")) {
-                throw new IllegalArgumentException("not text HUAWEI");
-            }
+        for (WebElement modelPhone : list) {
+            System.out.println(modelPhone.getText());
+            assertTrue(modelPhone.getText().contains("HUAWEI"));
+
         }
 
     }
